@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ImportMargen · ¿Cuánto puedo pujar por este coche alemán u holandés?</title>
+<meta name="description" content="Calculadora de margen para compraventas que importan coches de Alemania y Países Bajos: puja máxima, IVA intracomunitario vs REBU, IEDMT, transporte, COC y checklist de papeles.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0f172a">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="ImportMargen">
+<meta property="og:title" content="ImportMargen · Calculadora de margen y puja máxima para importar coches">
+<meta property="og:description" content="Puja máxima, IVA intracomunitario vs REBU, IEDMT, transporte, COC y checklist de papeles para compraventas que importan coches de Alemania y Países Bajos. Beta gratuita.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="beta-bar">Beta — cifras orientativas, consulte a su gestoría.</div>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="#">Import<span>Margen</span></a>
+    <nav><a href="#como">Cómo funciona</a><a href="#precios">Precios</a><a class="btn sm" href="#app">Abrir calculadora</a></nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Para compraventas e importadores a la carta · DE / NL / BE → España</p>
+    <h1>Sabe tu puja máxima <em>antes</em> de llamar al vendedor.</h1>
+    <p class="lead">Pon el precio de mobile.de o Marktplaats y el precio de venta en España. ImportMargen te dice cuánto ganas de verdad, con IVA intracomunitario o REBU, impuesto de matriculación, transporte, COC e ITV, y te da la oferta máxima para el margen que quieres.</p>
+    <div class="cta"><a class="btn" href="#app">Calcular un coche gratis</a><span class="muted">Sin registro. Los datos se guardan solo en tu navegador.</span></div>
+  </div>
+</section>
+
+<section class="wrap pains" id="como">
+  <div class="card"><h3>❌ La hoja de Excel miente</h3><p>Con un 0 % intracomunitario revendes con IVA sobre el precio entero. Con §25a / margeregeling, solo pagas IVA sobre el margen. Si confundes los dos, pierdes 2.000–3.000 € por coche.</p></div>
+  <div class="card"><h3>💸 Te comes los costes ocultos</h3><p>El IEDMT sale del valor de tablas de Hacienda, no de lo que pagaste. A eso súmale COC, ficha reducida, ITV de importación, tasa DGT, placas y gestoría. Aquí están todos, con su desglose.</p></div>
+  <div class="card"><h3>📄 Te falta un papel</h3><p>Sin COC, sin CMR firmado o con el NIF-IVA mal en la factura, el coche se queda parado en la ITV o te cuesta el IVA. Cada operación lleva su checklist.</p></div>
+</section>
+
+<section class="wrap steps">
+  <h2>Tres pasos</h2>
+  <ol>
+    <li><b>Datos del anuncio</b>: precio, tipo de vendedor, fecha de matriculación, km y CO₂.</li>
+    <li><b>Costes</b>: compara presupuestos de transporte y se elige el más barato. El resto de gastos ya viene rellenado con valores de 2026 que puedes cambiar.</li>
+    <li><b>Resultado</b>: beneficio neto, margen, <b>puja máxima</b>, checklist de papeles y presupuesto en PDF para tu cliente.</li>
+  </ol>
+</section>
+
+<!-- ================= APP ================= -->
+<section id="app" class="app wrap">
+  <div class="app-head">
+    <h2>Calculadora de operación</h2>
+    <div class="row gap">
+      <select id="dealList" aria-label="Operaciones guardadas"></select>
+      <button class="btn ghost sm" id="newDeal">Nueva</button>
+      <button class="btn ghost sm" id="saveDeal">Guardar</button>
+      <button class="btn ghost sm" id="delDeal">Borrar</button>
+      <button class="btn ghost sm" id="exportCsv">CSV</button>
+      <button class="btn ghost sm" id="shareLink">Copiar enlace</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <form id="form" class="panel" autocomplete="off">
+      <fieldset><legend>1 · Vehículo</legend>
+        <label class="full">Nombre / referencia<input name="name" placeholder="Tesla Model 3 LR 2019 · AB-123-C"></label>
+        <label>Marca y modelo<input name="model" placeholder="Tesla Model 3"></label>
+        <label>Origen<select name="origin"><option value="NL">Países Bajos</option><option value="DE">Alemania</option><option value="BE">Bélgica</option><option value="FR">Francia</option><option value="OTHER">Otro UE</option></select></label>
+        <label>1ª matriculación<input type="date" name="firstReg"></label>
+        <label>Kilómetros<input type="number" name="km" min="0" step="1"></label>
+        <label>CO₂ g/km (WLTP, eléctrico = 0)<input type="number" name="co2" min="0" step="1"></label>
+        <label>Enlace del anuncio<input name="url" type="url" placeholder="https://suchen.mobile.de/..."></label>
+      </fieldset>
+
+      <fieldset><legend>2 · Compra</legend>
+        <label>Tipo de vendedor<select name="sellerType">
+          <option value="dealer_vat">Profesional · factura 0 % IVA intracomunitario</option>
+          <option value="dealer_margin">Profesional · régimen de margen (§25a / margeregeling)</option>
+          <option value="private">Particular</option></select></label>
+        <label>Precio de compra (€)<input type="number" name="purchasePrice" min="0" step="10"></label>
+        <label>Valor tablas Hacienda nuevo (€, opcional)<input type="number" name="iedmtBaseNew" min="0" step="10" placeholder="vacío = precio de compra"></label>
+        <label>Tipo IEDMT manual (%, opcional)<input type="number" name="iedmtRatePct" min="0" max="20" step="0.01" placeholder="auto por CO₂"></label>
+        <label class="only-private">ITP (%, solo particular, consulta gestoría)<input type="number" name="itpPct" min="0" max="10" step="0.1"></label>
+      </fieldset>
+
+      <fieldset><legend>3 · Transporte · presupuestos</legend>
+        <div id="quotes" class="quotes full"></div>
+        <button type="button" class="btn ghost sm" id="addQuote">+ Añadir presupuesto</button>
+      </fieldset>
+
+      <fieldset><legend>4 · Costes en España (sin IVA)</legend>
+        <label>COC (€)<input type="number" name="coc" min="0" step="1"></label>
+        <label>Ficha reducida (€)<input type="number" name="fichaReducida" min="0" step="1"></label>
+        <label>ITV de importación (€)<input type="number" name="itv" min="0" step="1"></label>
+        <label>Tasa DGT (€)<input type="number" name="dgt" min="0" step="0.01"></label>
+        <label>Placas (€)<input type="number" name="plates" min="0" step="1"></label>
+        <label>Gestoría (€)<input type="number" name="gestoria" min="0" step="1"></label>
+        <label>Reacondicionamiento (€)<input type="number" name="recon" min="0" step="1"></label>
+        <label>Otros: viaje, seguro temporal… (€)<input type="number" name="other" min="0" step="1"></label>
+      </fieldset>
+
+      <fieldset><legend>5 · Venta en España</legend>
+        <label>Precio de venta previsto, IVA incl. (€)<input type="number" name="salePrice" min="0" step="10"></label>
+        <label>Margen objetivo (€)<input type="number" name="targetProfit" min="0" step="50"></label>
+        <div class="full comps" id="comps"></div>
+        <details class="full tesla" id="teslaBox"><summary>Ajustes de valor Tesla (SC01, Autopilot, MCU…)</summary>
+          <p class="muted small">Los importes son orientativos y los puedes cambiar. Antes de pagar por el SC01, comprueba el código en la cuenta Tesla del vendedor: el SC05 aparece igual en la app y no se transfiere.</p>
+          <div id="teslaAdj"></div>
+        </details>
+      </fieldset>
+    </form>
+
+    <aside class="panel result" id="result" aria-live="polite">
+      <div class="kpi big"><span>Beneficio neto</span><b id="kProfit">–</b><small id="kMargin"></small></div>
+      <div class="kpi bid"><span>Puja máxima para tu margen objetivo</span><b id="kBid">–</b><small id="kBidNote"></small></div>
+      <table class="breakdown" id="breakdown"></table>
+      <ul class="warn" id="warnings"></ul>
+      <h4>Checklist de papeles</h4>
+      <ul class="check" id="checklist"></ul>
+      <div class="quote-box">
+        <h4>Presupuesto para cliente (importación a la carta)</h4>
+        <label>Tus honorarios (€ sin IVA)<input type="number" id="fee" min="0" step="50" value="600"></label>
+        <button class="btn sm" id="printQuote" type="button">Generar PDF / imprimir</button>
+      </div>
+      <p class="muted small">Son estimaciones con tipos de 2026 (IEDMT estatal, coeficientes de Hacienda y tasa DGT 99,77 €). Las comunidades autónomas pueden cambiar los tipos. Confírmalo con tu gestoría antes de comprar.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="wrap pricing" id="precios">
+  <h2>Precios</h2>
+  <div class="plans">
+    <div class="card plan"><h3>Gratis</h3><p class="price">0 €</p><ul><li>Calculadora completa</li><li>Hasta 5 operaciones guardadas</li><li>Checklist de papeles</li></ul></div>
+    <div class="card plan hot"><h3>Pro</h3><p class="price">19 €<small>/mes</small></p><ul><li>Operaciones ilimitadas y en todos tus dispositivos</li><li>Presupuestos PDF con tu logo</li><li>Exportación para la gestoría</li><li>Valores de tablas de Hacienda integrados</li></ul></div>
+    <div class="card plan"><h3>Equipo</h3><p class="price">49 €<small>/mes</small></p><ul><li>Hasta 5 usuarios</li><li>Comparador de transportistas compartido</li><li>Alertas de anuncios bajo tu puja máxima (próximamente)</li></ul></div>
+  </div>
+  <p class="muted small center">Prototipo: los planes de pago todavía no están activos.</p>
+</section>
+
+<footer class="wrap foot muted small"><p class="beta-note"><strong>Beta — cifras orientativas, consulte a su gestoría.</strong></p><p>ImportMargen · versión beta · No es asesoramiento fiscal. Los datos se guardan solo en tu navegador.</p></footer>
+
+<!-- printable client quote -->
+<div id="printArea" class="print-only"></div>
+
+<script src="calc.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
