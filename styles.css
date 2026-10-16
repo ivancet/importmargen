@@ -71,3 +71,4 @@ h4{margin:14px 0 6px}
 
 .beta-bar{background:#fef3c7;color:#78350f;text-align:center;font-size:13px;padding:6px 10px;font-weight:600}
 .beta-note{color:#92400e;margin:0 0 4px}
+@media (max-width:600px){.nav nav a:not(.btn){display:none}.nav nav .btn{white-space:nowrap}.logo{font-size:18px}}
